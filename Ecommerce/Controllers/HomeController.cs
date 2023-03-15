@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ecommerce.Models;
 
 namespace Ecommerce.Controllers
 {
@@ -14,14 +15,10 @@ namespace Ecommerce.Controllers
             return View();
         }
 
-        public ActionResult Products()
-        {
-            return View();
-        }
+        
 
-        public ActionResult AddEditProduct()
-        {
-            return View();
-        }
+       
+
+        
     }
 }
