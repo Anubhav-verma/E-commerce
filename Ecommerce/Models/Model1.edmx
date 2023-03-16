@@ -13,6 +13,15 @@
           <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="text" />
         </EntityType>
+        <EntityType Name="ImageData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileContent" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="order_detail">
           <Key>
             <PropertyRef Name="order_item_id" />
@@ -45,7 +54,7 @@
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="500" />
           <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="image_url" Type="varchar" MaxLength="200" />
+          <Property Name="image_url" Type="int" />
           <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="updated_at" Type="datetime" Nullable="false" />
           <Property Name="quantity" Type="int" />
@@ -107,6 +116,7 @@
         </Association>
         <EntityContainer Name="EcommerceDBModelStoreContainer">
           <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageData" EntityType="Self.ImageData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="order_detail" EntityType="Self.order_detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order_master" EntityType="Self.Order_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product" EntityType="Self.product" Schema="dbo" store:Type="Tables" />
@@ -164,7 +174,7 @@
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="image_url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="image_url" Type="Int32" />
           <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="updated_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="quantity" Type="Int32" />
@@ -244,6 +254,7 @@
             <End Role="Order_master" EntitySet="Order_master" />
           </AssociationSet>
           <EntitySet Name="Categories" EntityType="EcommerceDBModel.Category" />
+          <EntitySet Name="ImageDatas" EntityType="EcommerceDBModel.ImageData" />
         </EntityContainer>
         <EntityType Name="Category">
           <Key>
@@ -252,6 +263,15 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="ImageData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FileContent" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -288,11 +308,11 @@
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="EcommerceDBModel.product">
               <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="image_url" ColumnName="image_url" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="price" ColumnName="price" />
-                <ScalarProperty Name="image_url" ColumnName="image_url" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="updated_at" ColumnName="updated_at" />
                 <ScalarProperty Name="quantity" ColumnName="quantity" />
@@ -325,6 +345,16 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageDatas">
+            <EntityTypeMapping TypeName="EcommerceDBModel.ImageData">
+              <MappingFragment StoreEntitySet="ImageData">
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

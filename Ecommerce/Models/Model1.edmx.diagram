@@ -13,6 +13,7 @@
         <AssociationConnector Association="EcommerceDBModel.FK__order_det__produ__3B75D760" ManuallyRouted="false" />
         <AssociationConnector Association="EcommerceDBModel.FK__Order_mas__custo__35BCFE0A" ManuallyRouted="false" />
         <EntityTypeShape EntityType="EcommerceDBModel.Category" Width="1.5" PointX="5.375" PointY="5.75" />
+        <EntityTypeShape EntityType="EcommerceDBModel.ImageData" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

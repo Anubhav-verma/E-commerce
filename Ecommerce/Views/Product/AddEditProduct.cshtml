@@ -1,5 +1,5 @@
 ﻿@model Ecommerce.Models.product 
-
+@using Ecommerce.Business
 @{
             
 
@@ -9,26 +9,32 @@
 
 <div class="container">
     <h1>Add Product</h1>
-    @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("AddEditProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-group">
-            @Html.LabelFor(m => m.name, new { @class = "control-label" })
+            @Html.Label("Product Name", new { @class = "control-label" })
             @Html.TextBoxFor(m => m.name, new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(m => m.name, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.description, new { @class = "control-label" })
+            @Html.Label("Description", new { @class = "control-label" })
             @Html.TextAreaFor(m => m.description, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.category_id, new { @class = "control-label" })
-            @Html.DropDownListFor(m => m.category_id, new SelectList(ViewBag.Categories, "Value", "Text"), "Select a Category", new { @class = "form-control" })
+            @Html.Label("Category", new { @class = "control-label" })
+            @Html.DropDownListFor(m => m.category_id, ProductManager.GetCategoryList(), "Select a Category", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.category_id, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Quantity", new { @class = "control-label" })
+            @Html.TextBoxFor(m => m.quantity, new { @class = "form-control", required = "required", type = "number", step = "0.01" })
+            @Html.ValidationMessageFor(m => m.quantity, "", new { @class = "text-danger" })
         </div>
 
         <div class="form-group">
@@ -38,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.image_url, new { @class = "control-label" })
+            @Html.Label("Upload Image", new { @class = "control-label" })
             <input type="file" name="Image" id="Image" class="form-control-file" accept=".jpg,.jpeg,.png,.gif">
             @Html.ValidationMessageFor(m => m.image_url, "", new { @class = "text-danger" })
         </div>

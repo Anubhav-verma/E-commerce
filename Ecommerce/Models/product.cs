@@ -24,7 +24,7 @@ namespace Ecommerce.Models
         public string name { get; set; }
         public string description { get; set; }
         public decimal price { get; set; }
-        public string image_url { get; set; }
+        public Nullable<int> image_url { get; set; }
         public System.DateTime created_at { get; set; }
         public System.DateTime updated_at { get; set; }
         public Nullable<int> quantity { get; set; }

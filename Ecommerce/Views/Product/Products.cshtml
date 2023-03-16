@@ -1,8 +1,31 @@
-﻿
+﻿@model List<Ecommerce.Models.product>
 @{
     ViewBag.Title = "Products";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Products</h2>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-md-3">
+            <div class="card mb-4 box-shadow">
+                @*<img class="card-img-top" src="@product.image_url" alt="@product.name">*@
+                <img src="@Url.Action("GetImage", "Product", new { id = @product.image_url })" alt="@product.name" width="259" height="200">
+                <div class="card-body">
+                    <h5 class="card-title">@product.name</h5>
+                    <p class="card-text">@product.description</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        @*<div class="btn-group">
+                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-sm btn-outline-secondary">View Details</a>
+                    <a href="@Url.Action("AddToCart", "Cart", new { id = product.Id })" class="btn btn-sm btn-outline-secondary">Add to Cart</a>
+                </div>*@
+                        <small class="text-muted">@product.price.ToString("C")</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 
