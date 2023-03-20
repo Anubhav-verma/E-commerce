@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Ecommerce.ViewModels
 {
@@ -43,6 +44,19 @@ namespace Ecommerce.ViewModels
 
         [Required(ErrorMessage = "The Country field is required.")]
         [Display(Name = "Country")]
-        public string Country { get; set; }
+        public string CountryID { get; set; }
+
+        [Required(ErrorMessage = "The Country field is required.")]
+        [Display(Name = "Country")]
+        public List<Countries> CountryList { get; set; }
+
+
+        [Required(ErrorMessage = "The State field is required.")]
+        [Display(Name = "State")]
+        public string StateID { get; set; }
+
+        [Required(ErrorMessage = "The Country field is required.")]
+        [Display(Name = "Country")]
+        public List<Countries> StateList { get; set; }
     }
 }

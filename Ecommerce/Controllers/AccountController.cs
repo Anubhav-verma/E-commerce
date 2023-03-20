@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Ecommerce.Models;
+using Ecommerce.Business;
+using Ecommerce.ViewModels;
 
 namespace Ecommerce.Controllers
 {
@@ -18,9 +21,23 @@ namespace Ecommerce.Controllers
         {
             return View();
         }
-
+        [HttpGet]
         public ActionResult Register()
+        {   
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Register(RegistrationViewModel model)
         {
+            try
+            {
+                AccountManager.AddUser(model);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
             return View();
         }
     }

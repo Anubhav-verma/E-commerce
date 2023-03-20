@@ -1,0 +1,37 @@
+﻿@model Ecommerce.Models.Product_Type
+@{
+    ViewBag.Title = "AddeditProductType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AddeditProductType</h2>
+
+
+@using (Html.BeginForm("AddEditProductType", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<div class="container">
+    <div class="form-group">
+        @Html.Label("Product Name", new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.product_type_name, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.product_type_name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Description", new { @class = "control-label" })
+        @Html.TextAreaFor(m => m.description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.description, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Upload Image", new { @class = "control-label" })
+        <input type="file" name="Image" id="Image" class="form-control-file" accept=".jpg,.jpeg,.png,.gif">
+        @Html.ValidationMessageFor(m => m.image_id, "", new { @class = "text-danger" })
+    </div>
+    <br />
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Product Type</button>
+    </div>
+</div>
+}

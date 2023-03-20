@@ -16,18 +16,23 @@ namespace Ecommerce.Controllers
             return View();
         }
 
-        public ActionResult Products()
+        public ActionResult Products(int productTypeId=0)
         {
+            int categoryId = 0;
             try
             {
                 List<product> ProductList = ProductManager.GetProductList();
+                if (productTypeId > 0)
+                {
+                    categoryId = CommonManager.GetCategoryDetails(productTypeId).CategoryID;
+                    if (categoryId > 0) { ProductList = ProductList.Where(x => x.category_id == categoryId).ToList(); }
+                }
                 return View(ProductList);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
-            
         }
         [HttpGet]
         public ActionResult AddEditProduct()
@@ -40,22 +45,7 @@ namespace Ecommerce.Controllers
         public ActionResult AddEditProduct(product model, HttpPostedFileBase Image)
         {
             EcommerceDBEntities db = new EcommerceDBEntities();
-            if (Image != null && Image.ContentLength > 0)
-            {
-                byte[] fileData = new byte[Image.ContentLength];
-                Image.InputStream.Read(fileData, 0, Image.ContentLength);
-                ImageData ImageModel = new ImageData
-                {
-                    FileName = Image.FileName,
-                    FileType = Image.ContentType,
-                    FileContent = fileData
-                };
-                var temp = db.ImageDatas.Add(ImageModel);
-                db.SaveChanges();
-
-                model.image_url = temp.Id;
-            }
-            
+            model.image_url = CommonManager.GetImageId(Image);//--here image_url refers to image id
             ProductManager.AddNewProduct(model);
             return View();
         }
@@ -82,6 +72,18 @@ namespace Ecommerce.Controllers
             newModel.Description = model.Description;
             db.Categories.Add(newModel);
             db.SaveChanges();
+            return View();
+        }
+        [HttpGet]
+        public ActionResult AddeditProductType()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddeditProductType(Product_Type model, HttpPostedFileBase Image)
+        {
+            model.image_id = CommonManager.GetImageId(Image);
+            ProductManager.AddProductType(model);
             return View();
         }
     }

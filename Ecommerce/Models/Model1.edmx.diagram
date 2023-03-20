@@ -4,16 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1fbb05437fe54b46a35a989db5cdb945" Name="Diagram1">
+      <Diagram DiagramId="1fbb05437fe54b46a35a989db5cdb945" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="EcommerceDBModel.order_detail" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EcommerceDBModel.Order_master" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="EcommerceDBModel.product" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="EcommerceDBModel.user" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="EcommerceDBModel.FK__order_det__order__3A81B327" ManuallyRouted="false" />
         <AssociationConnector Association="EcommerceDBModel.FK__order_det__produ__3B75D760" ManuallyRouted="false" />
-        <AssociationConnector Association="EcommerceDBModel.FK__Order_mas__custo__35BCFE0A" ManuallyRouted="false" />
         <EntityTypeShape EntityType="EcommerceDBModel.Category" Width="1.5" PointX="5.375" PointY="5.75" />
         <EntityTypeShape EntityType="EcommerceDBModel.ImageData" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="EcommerceDBModel.user" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="EcommerceDBModel.FK__Order_mas__custo__35BCFE0A" />
+        <EntityTypeShape EntityType="EcommerceDBModel.Product_Type" Width="1.5" PointX="7.375" PointY="3.75" />
+        <EntityTypeShape EntityType="EcommerceDBModel.sysdiagram" Width="1.5" PointX="7.375" PointY="6.75" />
+        <AssociationConnector Association="EcommerceDBModel.FK_Product_Type" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

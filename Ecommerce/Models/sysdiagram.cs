@@ -12,13 +12,12 @@ namespace Ecommerce.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class sysdiagram
     {
-        public int CategoryID { get; set; }
-        public string CategoryName { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> Product_type_id { get; set; }
-    
-        public virtual Product_Type Product_Type { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

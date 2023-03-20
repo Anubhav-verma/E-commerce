@@ -26,6 +26,7 @@ namespace Ecommerce.Business
                 newModel.updated_at = DateTime.Now;
                 db.products.Add(newModel);
                 db.SaveChanges();
+                db.Dispose();
             }
             catch(Exception ex)
             {
@@ -57,6 +58,28 @@ namespace Ecommerce.Business
             catch(Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static void AddProductType(Product_Type dataModel)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                Product_Type newDataModel = new Product_Type();
+                newDataModel.product_type_name = dataModel.product_type_name;
+                newDataModel.description = dataModel.description;
+                newDataModel.image_id = dataModel.image_id;
+                db.Product_Type.Add(newDataModel);
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
             }
         }
     }

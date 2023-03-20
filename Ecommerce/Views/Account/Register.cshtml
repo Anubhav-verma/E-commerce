@@ -1,5 +1,5 @@
-﻿@model Ecommerce.ViewModels.RegistrationViewModel
-
+﻿@model Ecommerce.ViewModels.@RegistrationViewModel
+@using Ecommerce.Business
 
 
 @{
@@ -8,21 +8,21 @@
 }
 <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
 @*<style>
-    /* Add this CSS code to animate the Register button */
-    #register-button:hover:not(:disabled) {
-        animation: 0.5s ease-out 0s alternate both running away;
-    }
+        /* Add this CSS code to animate the Register button */
+        #register-button:hover:not(:disabled) {
+            animation: 0.5s ease-out 0s alternate both running away;
+        }
 
-    @@keyframes running {
-        0% { transform: translateX(0px); }
-        100% { transform: translateX(30px); }
-    }
+        @@keyframes running {
+            0% { transform: translateX(0px); }
+            100% { transform: translateX(30px); }
+        }
 
-    @@keyframes away {
-        0% { transform: translateX(30px); }
-        100% { transform: translateX(0px); }
-    }
-</style>*@
+        @@keyframes away {
+            0% { transform: translateX(30px); }
+            100% { transform: translateX(0px); }
+        }
+    </style>*@
 
 
 <h2>Register</h2>
@@ -62,29 +62,37 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.City)
-        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.City)
-    </div>
-
-    <div class="form-group">
         @Html.LabelFor(m => m.PhoneNumber)
         @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.PhoneNumber)
     </div>
 
-    <div class="form-group">
+    @*<div class="form-group">
         @Html.LabelFor(m => m.PostalCode)
         @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.PostalCode)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Country)
-        @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Country)
+        @Html.Label("Country", new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.CountryID, new SelectList(CommonManager.GetCountryList(), "id", "name"), "Select a Country", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CountryID, "", new { @class = "text-danger" })
     </div>
 
+    <div class="form-group">
+        @Html.Label("State", new { @class = "control-label" })
+        @Html.DropDownListFor(m => m.StateID, new SelectList(CommonManager.GetCountryList(), "id", "name"), "Select a Country", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.StateID, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.City)
+        @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.City)
+    </div>*@
+
+
+    <br />
     <button type="submit" class="btn btn-primary" id="register-button">Register</button>
 }
 <script>
@@ -104,4 +112,22 @@
             }
         });
     });
+
+    @*$(document).ready(function () {
+        $("#CountryId").change(function () {
+            var countryId = $(this).val();
+            $.ajax({
+                url: "@Url.Action("GetStates", "Common")",
+                data: { countryId: countryId },
+                success: function (result) {
+                    var stateDropdown = $("#StateId");
+                    stateDropdown.empty();
+                    $.each(result, function (i, state) {
+                        stateDropdown.append($('<option></option>').val(state.Id).text(state.Name));
+                    });
+                }
+            });
+        });
+    });*@
+
 </script>

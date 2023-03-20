@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Ecommerce.Models.Product_Type>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,7 +6,25 @@
 
 <h2>Index</h2>
 <a href="Account/login">Login</a>
+<h1>Welcome to our Ecommerce Store</h1>
 
-@Html.ActionLink("Add New Product", "AddEditProduct", "Product")
-@Html.ActionLink("Add New Category", "AddEditCategories", "Product")
+<div class="category-list">
+    <div class="row">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3">
+                <div class="card mb-4 box-shadow">
+                    <a href="@Url.Action("Products","Product", new {productTypeId = product.product_type_id })"><img src="@Url.Action("GetImage", "Product", new { id = product.image_id })" alt="@product.product_type_name" width="259" height="200" ></a>
+                    <div class="card-body">
+                        <h5 class="card-title">@product.product_type_name</h5>
+                        <p class="card-text">@product.description</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+        @Html.ActionLink("Add New Product", "AddEditProduct", "Product")
+        @Html.ActionLink("Add New Category", "AddEditCategories", "Product")
+        @Html.ActionLink("Add New Product Type", "AddEditProductType", "Product")
 
