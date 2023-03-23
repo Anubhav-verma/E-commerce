@@ -35,26 +35,55 @@ namespace Ecommerce.Controllers
             }
         }
         [HttpGet]
-        public ActionResult AddEditProduct()
+        public ActionResult AddEditProduct(int ProductID=0)
         {
             EcommerceDBEntities db = new EcommerceDBEntities();
-
-            return View();
+            product dbModel = new product();
+            if (ProductID > 0)
+            {
+                dbModel = ProductManager.GetProductbyID(ProductID);
+            }
+            return View(dbModel);
         }
         [HttpPost]
         public ActionResult AddEditProduct(product model, HttpPostedFileBase Image)
         {
             EcommerceDBEntities db = new EcommerceDBEntities();
-            model.image_url = CommonManager.GetImageId(Image);//--here image_url refers to image id
-            ProductManager.AddNewProduct(model);
-            return View();
+            product newModel;
+            if (model.product_id == 0)
+            {
+                model.image_url = CommonManager.GetImageId(Image);//--here image_url refers to image id
+                newModel = ProductManager.AddNewProduct(model);
+            }
+            else
+            {
+                newModel = ProductManager.EditProduct(model);
+            }
+            int? productTypeID = db.Categories.Find(newModel.category_id).Product_type_id;
+            return RedirectToAction("Products", "Product", new { productTypeId = productTypeID });
         }
 
         public ActionResult GetImage(int id)
         {
             EcommerceDBEntities db = new EcommerceDBEntities();
-            ImageData model = db.ImageDatas.Where(x => x.Id == id).FirstOrDefault();
-            return File(model.FileContent, model.FileType);
+            try
+            {
+                if (id > 0)
+                {
+                    ImageData model = db.ImageDatas.Where(x => x.Id == id).FirstOrDefault();
+                    return File(model.FileContent, model.FileType);
+                }
+                return new EmptyResult();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+            
         }
 
         [HttpGet]
@@ -85,6 +114,12 @@ namespace Ecommerce.Controllers
             model.image_id = CommonManager.GetImageId(Image);
             ProductManager.AddProductType(model);
             return View();
+        }
+        
+        public ActionResult DeleteProduct(int ProductID)
+        {
+            ProductManager.DeleteProduct(ProductID);
+            return RedirectToAction("Products", "Product");
         }
     }
 }

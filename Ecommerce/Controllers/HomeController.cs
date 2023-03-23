@@ -17,6 +17,10 @@ namespace Ecommerce.Controllers
             return View(AllProductList);
         }
 
+        public ActionResult About()
+        {
+            return View();
+        }
         
 
        

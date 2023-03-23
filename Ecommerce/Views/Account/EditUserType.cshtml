@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "EditUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>EditUsers</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            <th>Column 4</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Property1</td>
+                <td>@item.Property2</td>
+                <td>@item.Property3</td>
+                <td>@item.Property4</td>
+            </tr>
+        }
+    </tbody>
+</table>

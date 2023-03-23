@@ -40,5 +40,10 @@ namespace Ecommerce.Controllers
             
             return View();
         }
+        [HttpGet]
+        public ActionResult EditUserType()
+        {
+            return View();
+        }
     }
 }

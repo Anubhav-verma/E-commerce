@@ -4,17 +4,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-<a href="Account/login">Login</a>
-<h1>Welcome to our Ecommerce Store</h1>
+<a href="@Url.Action("AddEditProduct", "Product")" class="btn btn-primary">Add New Product</a>
+<a href="@Url.Action("AddEditCategories", "Product")" class="btn btn-primary">Add New Category</a>
+<a href="@Url.Action("AddEditProductType", "Product")" class="btn btn-primary">Add New Product Type</a>
+<a href="@Url.Action("EditUsers", "Account")" class="btn btn-primary">Edit Users</a>
+<h2>Home</h2>
 
-<div class="category-list">
-    <div class="row">
+<h1>Welcome to our Ecommerce Store</h1>
+<div class="container">
+
+    <div class="row" >
         @foreach (var product in Model)
         {
-            <div class="col-md-3">
-                <div class="card mb-4 box-shadow">
-                    <a href="@Url.Action("Products","Product", new {productTypeId = product.product_type_id })"><img src="@Url.Action("GetImage", "Product", new { id = product.image_id })" alt="@product.product_type_name" width="259" height="200" ></a>
+            <div class="col-md-3"> 
+                <div class="card mb-3 box-shadow" >
+
+                    <a href="@Url.Action("Products","Product", new {productTypeId = product.product_type_id })">
+                        <img src="@Url.Action("GetImage", "Product", new { id = product.image_id})" alt="@product.product_type_name" Class="card-img-top img-fluid">
+                    </a>
                     <div class="card-body">
                         <h5 class="card-title">@product.product_type_name</h5>
                         <p class="card-text">@product.description</p>
@@ -24,7 +31,9 @@
         }
     </div>
 </div>
-        @Html.ActionLink("Add New Product", "AddEditProduct", "Product")
-        @Html.ActionLink("Add New Category", "AddEditCategories", "Product")
-        @Html.ActionLink("Add New Product Type", "AddEditProductType", "Product")
+   
+@*<button type="button" class="btn btn-success" href="@Html.ActionLink("Add New Product", "AddEditProduct", "Product")">Edit Product</button>*@
+
+
+
 

@@ -12,7 +12,10 @@
     @using (Html.BeginForm("AddEditProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
-
+        @Html.HiddenFor(x=>x.product_id, Model.product_id)
+        @Html.HiddenFor(x=>x.created_at, Model.created_at)
+        @Html.HiddenFor(x=>x.image_url, Model.image_url)
+        
         <div class="form-group">
             @Html.Label("Product Name", new { @class = "control-label" })
             @Html.TextBoxFor(m => m.name, new { @class = "form-control", required = "required" })

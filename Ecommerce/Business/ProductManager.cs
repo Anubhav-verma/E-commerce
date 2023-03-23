@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,12 +11,12 @@ namespace Ecommerce.Business
 {
     public class ProductManager
     {
-        public static void AddNewProduct(product model)
+        public static product AddNewProduct(product model)
         {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            product newModel = new product();
             try
             {
-                EcommerceDBEntities db = new EcommerceDBEntities();
-                product newModel = new product();
                 newModel.name = model.name;
                 newModel.description = model.description;
                 newModel.image_url = model.image_url;
@@ -24,13 +25,45 @@ namespace Ecommerce.Business
                 newModel.category_id = model.category_id;
                 newModel.created_at = DateTime.Now;
                 newModel.updated_at = DateTime.Now;
-                db.products.Add(newModel);
+                newModel = db.products.Add(newModel);
                 db.SaveChanges();
-                db.Dispose();
+                return newModel;
             }
             catch(Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
+
+        public static product EditProduct(product model)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            product newModel = GetProductbyID(model.product_id);
+            try
+            {
+                newModel.name = model.name;
+                newModel.description = model.description;
+                newModel.image_url = model.image_url;
+                newModel.price = model.price;
+                newModel.quantity = model.quantity;
+                newModel.category_id = model.category_id;
+                newModel.created_at = model.created_at;
+                newModel.updated_at = DateTime.Now;
+                db.Entry(newModel).State = EntityState.Modified;
+                db.SaveChanges();
+                return newModel;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
             }
         }
 
@@ -72,6 +105,37 @@ namespace Ecommerce.Business
                 newDataModel.image_id = dataModel.image_id;
                 db.Product_Type.Add(newDataModel);
                 db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
+
+        public static void DeleteProduct(int ProductId)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                db.products.Remove(db.products.Where(x=>x.product_id == ProductId).FirstOrDefault());
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public static product GetProductbyID(int ProductID)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                return db.products.Where(x => x.product_id == ProductID).FirstOrDefault();
             }
             catch(Exception ex)
             {
