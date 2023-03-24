@@ -43,7 +43,14 @@ namespace Ecommerce.Controllers
         [HttpGet]
         public ActionResult EditUserType()
         {
-            return View();
+            List<UsersViewModel> userList = AccountManager.GetUserGrid();
+            return View(userList);
+        }
+        [HttpPost]
+        public ActionResult EditUserType(int UserId, int UserType)
+        {
+            AccountManager.EditUser(UserId, UserType);
+            return RedirectToAction("EditUserType", "Account");
         }
     }
 }

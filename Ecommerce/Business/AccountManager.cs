@@ -6,6 +6,7 @@ using Ecommerce.Models;
 using System.Security.Cryptography;
 using System.Text;
 using Ecommerce.ViewModels;
+using System.Data.Entity;
 
 namespace Ecommerce.Business
 {
@@ -31,6 +32,27 @@ namespace Ecommerce.Business
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public static void EditUser(int UserId, int UserType)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                user dbModel = db.users.Find(UserId);
+                dbModel.user_type = UserType;
+                dbModel.updated_at = DateTime.Now;
+                db.Entry(dbModel).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
             }
         }
 
@@ -73,5 +95,30 @@ namespace Ecommerce.Business
 
             }
         }
+
+        public static List<UsersViewModel> GetUserGrid()
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                
+                var userList = (from users in db.users
+                                select new UsersViewModel { UserID = users.customer_id, FirstName = users.first_name, LastName = users.last_name, UserType = users.user_type });
+                return userList.ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
+    }
+
+    public class UserViewModelGrid : UsersViewModel
+    {
+        public UserViewModelGrid Usergrid { get; set; }
     }
 }
