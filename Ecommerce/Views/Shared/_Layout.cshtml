@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title - My Ecommerce Site</title>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+
+
+    @*<link rel="stylesheet" href="~/Content/Site.css" />*@
+    @*<link rel="stylesheet" href="~/css/site.css" />*@
     <script src="~/Scripts/jquery-3.6.3.min.js"></script>
     <!-- Add any additional stylesheets needed for the layout here -->
     <style>
@@ -20,19 +23,33 @@
                 box-shadow: 0 0 0 2px #2196f3;
                 outline: none;
             }
+
+        .sidebar {
+            position: fixed;
+            z-index: 9999;
+            height: 100%;
+            top: 0;
+            left: 0;
+            width: 240px; /* adjust the width to your liking */
+            box-sizing: border-box; /* include padding and border in height calculation */
+            padding: 20px; /* add some padding to the sidebar */
+            background-color: #f1f1f1;
+        }
+
+       
     </style>
+
 
 </head>
 
 <body>
-
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button id="actionMenu" onclick="openLeftMenu()" class="btn btn-secondary">Actions</button>
+
             <div class="container">
+
                 <a class="navbar-brand" href="@Url.Action("Index", "Home")">My Ecommerce Site</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
@@ -58,6 +75,7 @@
                         }
                         else
                         {
+
                             <li class="nav-item">
                                 <a class="nav-link" href="@Url.Action("Register", "Account")">Register</a>
                             </li>
@@ -67,8 +85,47 @@
                         }
                     </ul>
                 </div>
+
             </div>
         </nav>
+
+        <div class="container-fluid" style="display:none" id="leftMenu">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <button onclick="closeLeftMenu()">&times;</button>
+                    @*<div class="list-group">
+                        <a href="@Url.Action("EditUserType", "Account")" class="list-group-item list-group-item-action active" aria-current="true">
+                            Edit Users
+                        </a>
+                        <a href="@Url.Action("AddEditProduct", "Product")" class="list-group-item list-group-item-action">Add New Product</a>
+                        <a href="@Url.Action("AddEditCategories", "Product")" class="list-group-item list-group-item-action">Add New Category</a>
+                        <a href="@Url.Action("AddEditProductType", "Product")" class="list-group-item list-group-item-action">Add New Product Typ</a>
+                        
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a href="@Url.Action("AddEditProduct", "Product")" class="nav-link active">Add New Product</a></li>
+                        <li class="nav-item"><a href="@Url.Action("AddEditCategories", "Product")" class="nav-link active">Add New Category</a></li>
+                        <li class="nav-item"><a href="@Url.Action("AddEditProductType", "Product")" class="nav-link active">Add New Product Type</a></li>
+                        <li class="nav-item"><a href="@Url.Action("EditUserType", "Account")" class="nav-link active">Edit Users</a></li>
+                    </ul>*@
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="@Url.Action("AddEditProduct", "Product")" class="nav-link active">Add New Product</a></li>
+                        <li class="list-group-item"><a href="@Url.Action("AddEditCategories", "Product")" class="nav-link active">Add New Category</a></li>
+                        <li class="list-group-item"><a href="@Url.Action("AddEditProductType", "Product")" class="nav-link active">Add New Product Type</a></li>
+                        <li class="list-group-item"><a href="@Url.Action("EditUserType", "Account")" class="nav-link active">Edit Users</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div style="display:none" id="ActionMenuMobile">
+            <button onclick="closeLeftMenu()">&times;</button>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="@Url.Action("AddEditProduct", "Product")">Add New Product</a></li>
+                <li class="list-group-item"><a href="@Url.Action("AddEditCategories", "Product")">Add New Category</a></li>
+                <li class="list-group-item"><a href="@Url.Action("AddEditProductType", "Product")">Add New Product Type</a></li>
+                <li class="list-group-item"><a href="@Url.Action("EditUserType", "Account")">Edit Users</a></li>
+            </ul>
+        </div>
     </header>
 
     <main class="container py-4">
@@ -88,11 +145,32 @@
         </div>
     </footer>
     
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/jquery-3.6.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    
 
     <!-- Add any additional scripts needed for the layout here -->
 
     @RenderSection("scripts", required: false)
+    <script>
+
+        function openLeftMenu() {
+            $("#leftMenu").show();
+           
+        }
+        function closeLeftMenu() {
+            $("#leftMenu").hide();
+        }
+        
+        if ($(window).width() < 768) {
+            // Do something for small screens
+            
+            $("#actionMenu").click(function () {
+                $("#ActionMenuMobile").show();
+            })
+            
+        }
+
+    </script>
 </body>
 </html>
