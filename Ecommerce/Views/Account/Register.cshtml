@@ -27,7 +27,7 @@
 
 <h2>Register</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post))
+@using (Ajax.BeginForm("Register", "Account", null))
 {
     @Html.AntiForgeryToken()
 
@@ -111,6 +111,26 @@
                 $('#register-button').prop('disabled', false);
             }
         });
+    });
+
+    $("#register-button").click(function () {
+        event.preventDefault();
+        var email = $("#Email").val();
+        var password = $("#Password").val();
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("VerifyEmail","Account")',
+            data: { Email: email, Password: password },
+            success: function (emailVerified) {
+                if (emailVerified=="True") {
+                    $('form').submit();
+                }
+                else {
+                    alert("Please!!");
+                    return false;
+                }
+            }
+        })
     });
 
     @*$(document).ready(function () {

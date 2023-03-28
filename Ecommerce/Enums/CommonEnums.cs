@@ -13,7 +13,9 @@ namespace Ecommerce.Enums
             [Description("Admin")]
             Admin=1,
             [Description("Customer")]
-            Customer=2
+            Customer=2,
+            [Description("Vendor")]
+            Vendor=3
         }
     }
 }

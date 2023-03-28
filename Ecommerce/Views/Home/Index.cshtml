@@ -17,12 +17,13 @@
         @foreach (var product in Model)
         {
             <div class="col-md-3"> 
-                <div class="card mb-3 box-shadow" >
+                <div class="card h-100 mb-3 box-shadow">
 
                     <a href="@Url.Action("Products","Product", new {productTypeId = product.product_type_id })">
-                        <img src="@Url.Action("GetImage", "Product", new { id = product.image_id})" alt="@product.product_type_name" Class="card-img-top img-fluid">
+                        <img src="@Url.Action("GetImage", "Product", new { id = product.image_id})" alt="@product.product_type_name" Class="card-img-top img-fluid" style="height:300px">
                     </a>
-                    <div class="card-body">
+
+                    <div class="card-body h-100">
                         <h5 class="card-title">@product.product_type_name</h5>
                         <p class="card-text">@product.description</p>
                     </div>

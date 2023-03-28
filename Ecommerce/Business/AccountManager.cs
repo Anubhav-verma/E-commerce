@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Ecommerce.ViewModels;
 using System.Data.Entity;
+using Ecommerce.Enums;
 
 namespace Ecommerce.Business
 {
@@ -17,15 +18,16 @@ namespace Ecommerce.Business
             EcommerceDBEntities db = new EcommerceDBEntities();
             try
             {
-                GetEncryptedPassword(dataModel.Password);
+                string encryptedPassword = GetEncryptedPassword(dataModel.Password);
                 user newDataModel = new user();
                 newDataModel.email = dataModel.Email;
-                newDataModel.password = dataModel.Password;
+                newDataModel.password = encryptedPassword;
                 newDataModel.first_name = dataModel.FirstName;
                 newDataModel.last_name = dataModel.LastName;
                 newDataModel.phone = dataModel.PhoneNumber;
                 newDataModel.created_at = DateTime.Now;
                 newDataModel.updated_at = DateTime.Now;
+                newDataModel.user_type = (int)CommonEnums.UserType.Customer;
                 db.users.Add(newDataModel);
                 db.SaveChanges();
             }
@@ -71,8 +73,9 @@ namespace Ecommerce.Business
             }
         }
 
-        public static bool AuthenticateUserPassword(string password)
+        public static bool AuthenticateUserPassword(string storedPassword, string password)
         {
+            EcommerceDBEntities db = new EcommerceDBEntities();
             using (SHA256 sha256 = SHA256.Create())
             {
                 // convert the password to a byte array
@@ -82,7 +85,7 @@ namespace Ecommerce.Business
                 // convert the hash bytes to a base64 string
                 string hashString = Convert.ToBase64String(hashBytes);
                 // retrieve the stored hash string from the database
-                string storedHashString = "storedHashString";
+                string storedHashString = storedPassword;
                 // compare the hash string with the stored hash string
                 if (hashString == storedHashString)
                 {
@@ -114,6 +117,55 @@ namespace Ecommerce.Business
             {
                 db.Dispose();
             }
+        }
+        public static user GetUserByEmail(string email)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                return db.users.Where(x => x.email == email).FirstOrDefault();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
+
+        public static bool VerifyLogin(string Email, string Password)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            user actualUser;
+            try
+            {
+                actualUser = db.users.Where(x => x.email == Email).FirstOrDefault();
+                
+                if (AuthenticateUserPassword(actualUser.password, Password))
+                {
+                    SetSessionVariables(actualUser);
+                    return true;
+                }
+                return false;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
+
+        public static void SetSessionVariables(user userModel)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            HttpContext.Current.Session["UserID"] = userModel.customer_id;
+            HttpContext.Current.Session["UserType"] = userModel.user_type;
+            HttpContext.Current.Session["UserName"] = userModel.first_name;
         }
     }
 

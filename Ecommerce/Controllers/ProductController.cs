@@ -121,5 +121,9 @@ namespace Ecommerce.Controllers
             ProductManager.DeleteProduct(ProductID);
             return RedirectToAction("Products", "Product");
         }
-    }
+
+        public ActionResult ProductDetails(int ProductID)
+        {
+            return View();
+        }
 }

@@ -7,5 +7,6 @@ namespace Ecommerce.Models
 {
     public class Login
     {
+        public int UserId { get; set; }
     }
 }

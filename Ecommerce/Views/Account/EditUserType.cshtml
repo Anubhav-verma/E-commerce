@@ -23,7 +23,7 @@
                 <td>@item.UserID</td>
                 <td>@item.FirstName</td>
                 <td>@item.LastName</td>
-                <td id="userType_2" contenteditable="true">@item.UserType</td>
+                <td id="userType_@item.UserID" contenteditable="true">@item.UserType</td>
                 <td><button id="updateBtn" onclick="UpdateUser(@item.UserID)" class="btn btn-success">Update</button></td>
             </tr>
         }
