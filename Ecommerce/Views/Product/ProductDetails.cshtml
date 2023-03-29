@@ -1,8 +1,25 @@
-﻿
+﻿@model Ecommerce.Models.product
 @{
     ViewBag.Title = "ProductDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>ProductDetails</h2>
+<div class="row">
+    <div class="col-md-3">
+        <div class="card mb-4 box-shadow">
+            <img src="@Url.Action("GetImage", "Product", new { id = Model.image_url })" alt="@Model.name" style="height:300px">
+            <div class="card-body">
+                <h5 class="card-title">@Model.name</h5>
+                <p class="card-text">@Model.Material</p>
 
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <small class="text-muted">@Model.price.ToString("C")</small>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" style="float:right">@Model.description</div>
+</div>

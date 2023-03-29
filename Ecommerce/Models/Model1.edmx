@@ -53,13 +53,14 @@
           </Key>
           <Property Name="product_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="description" Type="varchar" MaxLength="500" />
+          <Property Name="description" Type="varchar(max)" />
           <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="image_url" Type="int" />
           <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="updated_at" Type="datetime" Nullable="false" />
           <Property Name="quantity" Type="int" />
           <Property Name="category_id" Type="int" />
+          <Property Name="Material" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Product_Type">
           <Key>
@@ -211,7 +212,7 @@
           </Key>
           <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
           <Property Name="image_url" Type="Int32" />
           <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
@@ -219,6 +220,7 @@
           <Property Name="quantity" Type="Int32" />
           <Property Name="category_id" Type="Int32" />
           <NavigationProperty Name="order_detail" Relationship="Self.FK__order_det__produ__3B75D760" FromRole="product" ToRole="order_detail" />
+          <Property Name="Material" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK__order_det__order__3A81B327">
           <End Role="Order_master" Type="Self.Order_master" Multiplicity="1" />
@@ -388,6 +390,7 @@
           <EntitySetMapping Name="products">
             <EntityTypeMapping TypeName="EcommerceDBModel.product">
               <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="Material" ColumnName="Material" />
                 <ScalarProperty Name="image_url" ColumnName="image_url" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="name" ColumnName="name" />

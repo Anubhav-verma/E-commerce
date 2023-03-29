@@ -124,6 +124,9 @@ namespace Ecommerce.Controllers
 
         public ActionResult ProductDetails(int ProductID)
         {
-            return View();
+            product dbModel = ProductManager.GetProductbyID(ProductID);
+
+            return View(dbModel);
         }
+    }
 }

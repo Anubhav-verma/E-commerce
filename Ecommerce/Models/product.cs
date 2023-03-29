@@ -29,6 +29,7 @@ namespace Ecommerce.Models
         public System.DateTime updated_at { get; set; }
         public Nullable<int> quantity { get; set; }
         public Nullable<int> category_id { get; set; }
+        public string Material { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<order_detail> order_detail { get; set; }

@@ -46,6 +46,7 @@ namespace Ecommerce.Business
             try
             {
                 newModel.name = model.name;
+                newModel.Material = model.Material;
                 newModel.description = model.description;
                 newModel.image_url = model.image_url;
                 newModel.price = model.price;
