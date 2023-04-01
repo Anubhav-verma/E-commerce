@@ -45,7 +45,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
             <button id="actionMenu" onclick="openLeftMenu()" class="btn btn-secondary">Actions</button>
 
             <div class="container">
@@ -58,6 +58,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Products", "Product")">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Payments")">Check Out</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("About", "Home")">About Us</a>

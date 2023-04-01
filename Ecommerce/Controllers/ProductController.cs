@@ -31,9 +31,11 @@ namespace Ecommerce.Controllers
             }
             catch(Exception ex)
             {
+
                 throw ex;
             }
         }
+
         [HttpGet]
         public ActionResult AddEditProduct(int ProductID=0)
         {
@@ -45,6 +47,7 @@ namespace Ecommerce.Controllers
             }
             return View(dbModel);
         }
+
         [HttpPost]
         public ActionResult AddEditProduct(product model, HttpPostedFileBase Image)
         {
@@ -91,6 +94,7 @@ namespace Ecommerce.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult AddEditCategories(Category model)
         {
@@ -103,17 +107,38 @@ namespace Ecommerce.Controllers
             db.SaveChanges();
             return View();
         }
+
         [HttpGet]
-        public ActionResult AddeditProductType()
+        public ActionResult AddeditProductType(int ProductTypeId = 0)
         {
-            return View();
+            Product_Type model = new Product_Type();
+            if (ProductTypeId > 0)
+            {
+                model = ProductManager.GetProductTypeById(ProductTypeId);
+            }
+            return View(model);
         }
+
         [HttpPost]
         public ActionResult AddeditProductType(Product_Type model, HttpPostedFileBase Image)
         {
-            model.image_id = CommonManager.GetImageId(Image);
-            ProductManager.AddProductType(model);
-            return View();
+            if(model.product_type_id == 0)
+            {
+                model.image_id = CommonManager.GetImageId(Image);
+                ProductManager.AddProductType(model);
+            }
+            else
+            {
+                ProductManager.EditProductType(model);
+            }
+            
+            return RedirectToAction("Index","Home");
+        }
+
+        public ActionResult DeleteProductType(int ProductTypeId)
+        {
+            ProductManager.DeleteProductType(ProductTypeId);
+            return RedirectToAction("Index", "Home");
         }
         
         public ActionResult DeleteProduct(int ProductID)

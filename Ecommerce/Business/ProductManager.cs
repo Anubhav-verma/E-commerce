@@ -147,6 +147,63 @@ namespace Ecommerce.Business
                 db.Dispose();
             }
         }
+
+        public static Product_Type GetProductTypeById(int ProductTypeId)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                return db.Product_Type.Find(ProductTypeId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
+
+        public static void EditProductType(Product_Type viewModel)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            Product_Type dbModel = db.Product_Type.Find(viewModel.product_type_id);
+            try
+            {
+                dbModel.product_type_name = viewModel.product_type_name;
+                dbModel.description = viewModel.description;
+                dbModel.image_id = viewModel.image_id;
+                db.Entry(dbModel).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
+
+        public static void DeleteProductType(int ProductTypeId)
+        {
+            EcommerceDBEntities db = new EcommerceDBEntities();
+            try
+            {
+                db.Product_Type.Remove(db.Product_Type.Find(ProductTypeId));
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                db.Dispose();
+            }
+        }
     }
 
     //public class productList

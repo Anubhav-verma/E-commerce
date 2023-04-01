@@ -27,6 +27,9 @@
                         <h5 class="card-title">@product.product_type_name</h5>
                         <p class="card-text">@product.description</p>
                     </div>
+                    <a href="@Url.Action("DeleteProductType", "Product", new { ProductTypeId = product.product_type_id})" class="btn btn-danger">Delete Product</a>
+                    <a href="@Url.Action("AddEditProductType", "Product", new { ProductTypeId = product.product_type_id})" class="btn btn-success">Edit Product</a>
+
                 </div>
             </div>
         }

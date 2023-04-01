@@ -284,6 +284,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PaymentsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Enums\CommonEnums.cs" />
     <Compile Include="Global.asax.cs">
@@ -370,6 +371,7 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Account\EditUserType.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
+    <Content Include="Views\Payments\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,6 +9,7 @@
 
 @using (Html.BeginForm("AddEditProductType", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
+    @Html.HiddenFor(x => x.product_type_id, Model.product_type_id);
     @Html.AntiForgeryToken()
 <div class="container">
     <div class="form-group">
